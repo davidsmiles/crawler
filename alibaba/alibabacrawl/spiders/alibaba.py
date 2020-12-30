@@ -14,7 +14,7 @@ class AlibabaSpider(scrapy.Spider):
         with open(json_path, 'r') as file:
             content = json.load(file)
 
-        for key in content[0:5]:
+        for key in content:
             yield scrapy.Request(find_url.format(key), self.parse, meta={'keyword': key})
 
     def parse(self, response, **kwargs):

@@ -1,4 +1,4 @@
-import html
+﻿import html
 import json
 
 import scrapy
@@ -15,7 +15,7 @@ class EbaycrawlSpider(scrapy.Spider):
         with open(json_path, 'r') as file:
             content = json.load(file)
 
-        for key in content:
+        for key in content[1:2]:
             yield scrapy.Request(find_url.format(html.escape(key)), self.parse, meta={'keyword': key}, dont_filter=True)
 
     def parse(self, response, **kwargs):

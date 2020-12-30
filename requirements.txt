@@ -1,0 +1,6 @@
+Scrapy
+scrapy-crawlera
+scrapy-fake-useragent
+scrapy-rotating-proxies
+scrapy-user-agents
+boto3

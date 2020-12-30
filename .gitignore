@@ -1,2 +1,7 @@
 .idea/
-legacy_ranking_list.json
+.env
+*proxies.txt
+Pipfile
+Pipfile.lock
+*.csv
+logs.txt
