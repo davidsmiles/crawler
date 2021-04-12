@@ -3,6 +3,8 @@ import json
 
 import scrapy
 
+from ..pipelines import EbaycrawlPipeline
+
 
 class EbaycrawlSpider(scrapy.Spider):
 
@@ -15,12 +17,19 @@ class EbaycrawlSpider(scrapy.Spider):
         with open(json_path, 'r') as file:
             content = json.load(file)
 
-        for key in content[1:2]:
-            yield scrapy.Request(find_url.format(html.escape(key)), self.parse, meta={'keyword': key}, dont_filter=True)
+        db = EbaycrawlPipeline()
+
+        try:
+            while True:
+                key = db.ebaykeywords.find_one({'crawled': True})['keyword']
+                print(key)
+                yield scrapy.Request(find_url.format(html.escape(key)), self.parse, meta={'keyword': key}, dont_filter=True)
+        except KeyboardInterrupt:
+            print('Stopping....')
 
     def parse(self, response, **kwargs):
         results = response.css('ul.srp-results li.s-item')
-        for each in results[0:3]:
+        for each in results[:10]:
             each_url = each.css('div > div.s-item__info > a::attr(href)').get()
 
             if each_url:

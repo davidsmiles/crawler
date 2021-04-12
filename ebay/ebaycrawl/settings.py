@@ -90,7 +90,7 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 
 
 # Enable proxies from WEBSHARE.IO
-# ROTATING_PROXY_LIST_PATH = './ebaycrawl/proxy/webshare100proxies.txt'
+# ROTATING_PROXY_LIST_PATH = './ebaycrawl/proxy/lime.txt'
 # DOWNLOADER_MIDDLEWARES = {
 #     'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
 #     'rotating_proxies.middlewares.BanDetectionMiddleware': 620

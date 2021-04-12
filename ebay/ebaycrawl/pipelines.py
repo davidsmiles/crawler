@@ -16,15 +16,21 @@ class EbaycrawlPipeline:
         Replace URL with connection uri of your mongodb database
         """
 
-    # def __init__(self):
-    #     URL = "<link to mongodb database>"
-    #     self.client = pymongo.MongoClient(URL)
-    #     db = self.client['<set-name-of-database eg. scraped-data>']  # set name of database
-    #     self.collection = db['<set-name-of-collection eg. ebay>']    # set name of collection
+    def __init__(self):
+        url = f"mongodb://seoadmin:GOOGLEPLSRANKME%21%21%21@202.61.242.18:27017/crawler?authSource=admin&readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+        self.client = pymongo.MongoClient(url)
+        db = self.client['crawler']
+        self.ebay = db.ebay
+        self.ebaykeywords = db.ebaykeywords
 
     def process_item(self, item, spider):
         """
             UNCOMMENT LINE TO ALLOW INSERTION INTO THE MONGODB DATABASE
         """
-        # self.collection.insert(dict(item))
+        keyword = item['keyword']
+        query = {"keyword": keyword}
+        value = {"$set": {"crawled": "Done"}}
+
+        self.ebaykeywords.update_one(query, value)
+        self.ebay.insert(dict(item))
         return item
